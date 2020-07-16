@@ -1,0 +1,15 @@
+﻿  App.cpp
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(130,19): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(146,40): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(155,40): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(164,40): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(173,40): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(182,40): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(190,83): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(199,40): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(208,40): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(217,40): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(226,40): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(235,40): warning C4390: ';': empty controlled statement found; is this the intent?
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(397): warning C4715: 'CApp::window_proc': not all control paths return a value
+  WindowsProject1.vcxproj -> C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\Debug\WindowsProject1.exe
