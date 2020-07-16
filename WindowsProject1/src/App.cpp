@@ -78,6 +78,7 @@ std::wstring CApp::Browse() {
 	return temp;
 }
 
+
 void CApp::DisplayDataFormArchive()
 {
 	auto readData = this->currentArchive->ReadArchive();
@@ -269,6 +270,7 @@ LRESULT CApp::window_proc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 		
 		if (currentArchive != nullptr)
 			diagram->Draw();
+		UpdateWindow(this->m_hWnd);
 		break;
 
 	}

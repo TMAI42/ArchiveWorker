@@ -12,6 +12,7 @@
 
 
 #include "Helpers.h"
+#include "includes/zlib.h"
 #include "include/archive.h"
 #include "include/archive_entry.h"
 

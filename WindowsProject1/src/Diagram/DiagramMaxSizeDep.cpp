@@ -1,7 +1,6 @@
 #include "DiagramMaxSizeDep.h"
 
 
-
 DiagramMaxSizeDep::DiagramMaxSizeDep(HWND hwnd, int width, int height):Diagram(hwnd, width, height){}
 
 void DiagramMaxSizeDep::SetData(std::vector<std::pair<std::wstring, int>> data)

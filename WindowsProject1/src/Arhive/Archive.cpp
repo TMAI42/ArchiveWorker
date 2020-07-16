@@ -78,11 +78,10 @@ void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring n
     char buff[8192];
     int len;
 
-    this->currentPath = Helpers::GetPathFromAbsPath(this->currentPath) + name + L".zip";
+    this->currentPath = Helpers::GetPathFromAbsPath(this->currentPath) + name;
     auto fd =CreateFileA(Helpers::Converters::WStringToStr(this->currentPath).c_str(),
         GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
     CloseHandle(fd);
-
 
     archivePtr.reset(archive_write_new());
     //archive_write_zip_set_compression_store(archivePtr.get());

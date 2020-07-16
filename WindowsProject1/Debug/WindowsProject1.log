@@ -1,15 +1,64 @@
-﻿  App.cpp
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(130,19): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(146,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(155,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(164,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(173,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(182,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(190,83): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(199,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(208,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(217,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(226,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(235,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(397): warning C4715: 'CApp::window_proc': not all control paths return a value
+﻿  Archive.cpp
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\Arhive\Archive.cpp(131,9): warning C4101: 'len': unreferenced local variable
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\Arhive\Archive.cpp(130,13): warning C4101: 'buff': unreferenced local variable
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\utility(152,1): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+          with
+          [
+              _Ty=la_int64_t
+          ]
+          and
+          [
+              _Ty2=int
+          ]
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\Arhive\Archive.cpp(65): message : see reference to function template instantiation 'std::pair<std::wstring,int>::pair<std::wstring,la_int64_t,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=std::wstring,
+              _Other2=la_int64_t
+          ]
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\Arhive\Archive.cpp(65): message : see reference to function template instantiation 'std::pair<std::wstring,int>::pair<std::wstring,la_int64_t,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+          with
+          [
+              _Other1=std::wstring,
+              _Other2=la_int64_t
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xstring(2395,23): warning C4244: 'argument': conversion from 'wchar_t' to 'const _Elem', possible loss of data
+          with
+          [
+              _Elem=char
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xstring(2406): message : see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(_Iter,const _Iter,std::input_iterator_tag)' being compiled
+          with
+          [
+              _Iter=wchar_t *
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xstring(2406): message : see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(_Iter,const _Iter,std::input_iterator_tag)' being compiled
+          with
+          [
+              _Iter=wchar_t *
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xstring(2386): message : see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(const _Iter,const _Iter,std::forward_iterator_tag)' being compiled
+          with
+          [
+              _Iter=wchar_t *
+          ]
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\xstring(2386): message : see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct<wchar_t*>(const _Iter,const _Iter,std::forward_iterator_tag)' being compiled
+          with
+          [
+              _Iter=wchar_t *
+          ]
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\Arhive\Archive.cpp(97): message : see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+          with
+          [
+              _Elem=wchar_t,
+              _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+              _Alloc=std::allocator<char>
+          ]
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\Arhive\Archive.cpp(97): message : see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+          with
+          [
+              _Elem=wchar_t,
+              _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+              _Alloc=std::allocator<char>
+          ]
   WindowsProject1.vcxproj -> C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\Debug\WindowsProject1.exe
