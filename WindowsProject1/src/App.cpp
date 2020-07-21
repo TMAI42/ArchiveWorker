@@ -46,9 +46,10 @@ std::wstring CApp::Browse() {
 	if (SUCCEEDED(hr)){
 
 		CComPtr<IFileOpenDialog> pFileOpen;
-		//tempPFileOpen->SetFilter();
+
 		hr = CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL,
 			IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen));
+
 
 		if (SUCCEEDED(hr)){
 
@@ -81,8 +82,13 @@ std::wstring CApp::Browse() {
 
 void CApp::DisplayDataFormArchive()
 {
+
+	SendMessage(this->m_hListDisk, LB_RESETCONTENT, 0, 0);
+	SendMessage(this->m_hListArchive, LB_RESETCONTENT, 0, 0);
+
+
 	auto readData = this->currentArchive->ReadArchive();
-	for (auto o : readData) {
+	for (const auto& o : readData) {
 		SendMessage(this->m_hListArchive,
 			LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(o.first.c_str()));
 	}
@@ -235,7 +241,17 @@ void CApp::create_native_controle(){
 		this->m_hWnd, reinterpret_cast<HMENU>(CTRL_ID::TO_ARCHIVE),
 		nullptr, nullptr); !this->m_hWndEdit);
 
+	if (this->m_hFormatBox = CreateWindowEx(
+		0,
+		L"Combobox",
+		L"",
+		WS_CHILD | WS_VSCROLL | CBS_DROPDOWNLIST | WS_VISIBLE,
+		610, 0, 50, 20,
+		this->m_hWnd, reinterpret_cast<HMENU>(365),
+		nullptr, nullptr); !this->m_hWndEdit);
 
+	for(const auto& format:suportedFormats)
+		SendMessage(this->m_hFormatBox, CB_ADDSTRING, 1, reinterpret_cast<LPARAM>(format.c_str()));
 }
 
 
@@ -331,16 +347,30 @@ LRESULT CApp::window_proc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 				std::wstring text{};
 				text.resize(260);
 				GetWindowText(this->m_hArchiveNamebox, &text[0], 260);
+				text.erase(remove(text.begin(), text.end(), 0), text.end());
 
 				if ((addList.size() == 0))
 					break;
 
-				currentArchive->WriteToArchive(addList, text);
-				addList.clear();
+				if (currentArchive == nullptr) {
 
-				SendMessage(this->m_hListDisk, LB_RESETCONTENT, 0, 0);
-				SendMessage(this->m_hListArchive, LB_RESETCONTENT, 0, 0);
-				
+					WCHAR pathToExe[500];
+					DWORD size = GetModuleFileNameW(NULL, pathToExe, 500);
+
+					currentArchive.reset(new Archive(std::wstring(pathToExe)));
+				}
+
+				auto formatNum = SendMessage(this->m_hFormatBox, CB_GETCURSEL, 0, 0L);
+
+				if (formatNum < 0) {
+					//MessageBox(this->m_hWnd, L"Choose format!", L"Info", MB_ICONINFORMATION | MB_OK);
+					break;
+				}
+
+				text += L"." + suportedFormats[formatNum];
+				currentArchive->WriteToArchive(addList, text, suportedFormats[formatNum]);
+
+				addList.clear();
 
 				DisplayDataFormArchive();
 			}
@@ -361,24 +391,13 @@ LRESULT CApp::window_proc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 			text.resize(260);
 			GetWindowText(this->m_hArchiveNamebox, &text[0], 260);
 
-			if ((addList.size() == 0))
+			if ((addList.size() == 0)|| !currentArchive)
 				break;
 
 			currentArchive->AddToArchive(addList);
 			addList.clear();
 
-			SendMessage(this->m_hListDisk, LB_RESETCONTENT, 0, 0);
-			SendMessage(this->m_hListArchive, LB_RESETCONTENT, 0, 0);
-
-			auto readData = currentArchive->ReadArchive();
-			for (auto o : readData) {
-				SendMessage(this->m_hListArchive,
-					LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(o.first.c_str()));
-			}
-
-
-			diagram->SetData(readData);
-			diagram->Draw();
+			DisplayDataFormArchive();
 			break;
 		}
 

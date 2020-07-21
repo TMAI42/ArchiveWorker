@@ -12,7 +12,7 @@
 
 
 #include "Helpers.h"
-#include "includes/zlib.h"
+//#include "includes/zlib.h"
 #include "include/archive.h"
 #include "include/archive_entry.h"
 
@@ -24,7 +24,7 @@ public:
 	virtual ~Archive_abstract() = default;
 
 	virtual std::vector<std::pair<std::wstring, int>> ReadArchive() = 0;
-	virtual void WriteToArchive(std::vector<std::wstring> filenames, std::wstring name) = 0;
+	virtual void WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format) = 0;
 	virtual void Extract() = 0;
 	virtual void AddToArchive(std::vector<std::wstring> filenames) = 0;
 };

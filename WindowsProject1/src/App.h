@@ -42,6 +42,13 @@ private:
 
 private:
 
+	std::vector<std::wstring> suportedFormats = {
+		L"zip",
+		L"tar",
+		L"pax",
+		L"7zip"
+	};
+
 	const std::wstring m_szAppName{ L"App Name" };
 	const std::wstring m_szClassName{ L"App Name" };
 
@@ -62,6 +69,8 @@ private:
 	HWND m_hWriteNewArchiveButton;
 	//draw area
 	HWND m_hDrawArea;
+	//combobox
+	HWND m_hFormatBox;
 
 	const int m_nAppWidth = 1000;
 	const int m_nAppHeight = 500;

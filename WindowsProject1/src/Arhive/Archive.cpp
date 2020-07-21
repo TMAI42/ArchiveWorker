@@ -70,7 +70,7 @@ std::vector<std::pair<std::wstring, int>> Archive::ReadArchive() {
 }
 
 //TODO: error handler
-void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring name) {
+void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format) {
 
     std::unique_ptr<archive, std::function<void(archive*)>> archivePtr(nullptr, Deleter::WriteDeliter);
     archive_entry* entry;
@@ -84,13 +84,11 @@ void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring n
     CloseHandle(fd);
 
     archivePtr.reset(archive_write_new());
-    //archive_write_zip_set_compression_store(archivePtr.get());
     archive_write_set_format_zip(archivePtr.get());
-   // archive_write_set_compression_gzip(archivePtr.get());
     archive_write_zip_set_compression_deflate(archivePtr.get());
-    //archive_write_set_format_option(archivePtr.get(), "zip", "compression", "deflate");
-    archive_write_set_format_option(archivePtr.get(), "zip", "compression-level", "9");
-    auto r=archive_write_open_filename(archivePtr.get(),
+    archive_write_set_format_option(archivePtr.get(), 
+        Helpers::Converters::WStringToStr(format).c_str(), "compression-level", "9");
+    auto r = archive_write_open_filename(archivePtr.get(),
         Helpers::Converters::WStringToStr(this->currentPath).c_str());
     for (auto filename : filenames){
 
@@ -190,7 +188,7 @@ void Archive::AddToArchive(std::vector<std::wstring> filenames) {
     for (auto& file : resentExtractedFiles)
         filenames.push_back(file);
 
-    WriteToArchive(filenames, Helpers::GetNameFromPath(currentPath));
+    WriteToArchive(filenames, Helpers::GetNameFromPath(currentPath), Helpers::GetFormatFromPath(currentPath));
 
     for (auto& file : resentExtractedFiles)
         DeleteFile(file.c_str());
