@@ -8,15 +8,20 @@
 #include <time.h>
 
 
-class Diagram {
+
+class IDiagram {
+
+
 public:
 
-	Diagram(HWND hwnd, int width, int height);
-	virtual ~Diagram() = default;
+	IDiagram(HWND hwnd, int width, int height);
+	virtual ~IDiagram() = default;
 
 	virtual void SetData(std::vector<std::pair<std::wstring, int>> data);
 
 	virtual void Draw() = 0;
+
+	
 
 protected:
 	int targetWidth, targetHeight;

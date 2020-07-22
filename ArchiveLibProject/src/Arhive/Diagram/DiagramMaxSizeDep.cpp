@@ -1,11 +1,11 @@
 #include "DiagramMaxSizeDep.h"
 
 
-DiagramMaxSizeDep::DiagramMaxSizeDep(HWND hwnd, int width, int height):Diagram(hwnd, width, height){}
+DiagramMaxSizeDep::DiagramMaxSizeDep(HWND hwnd, int width, int height):IDiagram(hwnd, width, height){}
 
 void DiagramMaxSizeDep::SetData(std::vector<std::pair<std::wstring, int>> data)
 {
-    Diagram::SetData(data);
+    IDiagram::SetData(data);
 	/*pairsNameSize = std::move(data);*/
 	for (auto& p : pairsNameSize) {
 		maxValueOfSIze = (p.second > maxValueOfSIze) ? p.second : maxValueOfSIze;

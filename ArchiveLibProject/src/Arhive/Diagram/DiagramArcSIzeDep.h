@@ -1,7 +1,7 @@
 #pragma once
-#include "Diagram.h"
+#include "IDiagram.h"
 
-class DiagramArcSIzeDep : public Diagram {
+class DiagramArcSIzeDep : public IDiagram {
 
 public:
 

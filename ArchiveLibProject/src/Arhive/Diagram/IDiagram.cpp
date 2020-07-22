@@ -1,6 +1,6 @@
-#include "Diagram.h"
+#include "IDiagram.h"
 
-Diagram::Diagram(HWND hwnd, int width, int height)
+IDiagram::IDiagram(HWND hwnd, int width, int height)
     :target(hwnd), targetWidth(width), targetHeight(height) {
 
     HRESULT hr = D2D1CreateFactory(
@@ -16,7 +16,7 @@ Diagram::Diagram(HWND hwnd, int width, int height)
     );
 }
 
-void Diagram::SetData(std::vector<std::pair<std::wstring, int>> data)
+void IDiagram::SetData(std::vector<std::pair<std::wstring, int>> data)
 {
     pairsNameSize = std::move(data);
 

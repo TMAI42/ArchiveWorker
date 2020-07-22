@@ -1,10 +1,10 @@
 #include "DiagramArcSIzeDep.h"
 
-DiagramArcSIzeDep::DiagramArcSIzeDep(HWND hwnd, int width, int height):Diagram(hwnd, width, height) {}
+DiagramArcSIzeDep::DiagramArcSIzeDep(HWND hwnd, int width, int height):IDiagram(hwnd, width, height) {}
 
 void DiagramArcSIzeDep::SetData(std::vector<std::pair<std::wstring, int>> data){
 
-	Diagram::SetData(data);
+	IDiagram::SetData(data);
 	for (const auto& pair : pairsNameSize)
 		arcValueOfSIze += pair.second;
 

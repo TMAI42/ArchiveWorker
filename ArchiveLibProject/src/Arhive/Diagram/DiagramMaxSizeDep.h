@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Diagram.h"
+#include "IDiagram.h"
 
-class DiagramMaxSizeDep : public Diagram{
+class DiagramMaxSizeDep : public IDiagram{
 
 public:
 

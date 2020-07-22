@@ -1,30 +1,22 @@
 #pragma once
 
-#include <Windows.h>
 #include <vector>
 #include <string>
-#include <functional>
-#include <memory>
-#include <fcntl.h>
-#include <utility>
-#include <iostream>
-#include <io.h>
 
 
-#include "Helpers.h"
-//#include "includes/zlib.h"
-#include "include/archive.h"
-#include "include/archive_entry.h"
 
-
-class Archive_abstract {
+class IArchive {
 	
 public:
 
-	virtual ~Archive_abstract() = default;
+	virtual ~IArchive() = default;
 
 	virtual std::vector<std::pair<std::wstring, int>> ReadArchive() = 0;
 	virtual void WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format) = 0;
 	virtual void Extract() = 0;
 	virtual void AddToArchive(std::vector<std::wstring> filenames) = 0;
+
+	virtual void SetDrawingObject(HWND targt, int width, int height) = 0;
+	virtual void ResetDiagramType(DiagramType newType) = 0;
+	virtual void DisplayArchiv() = 0;
 };

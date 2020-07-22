@@ -1,7 +1,10 @@
 #include "Archive.h"
+#include "../DiagramFactory.h"
 
 
-Archive::Archive(std::wstring mPath) : currentPath(mPath) {}
+Archive::Archive(std::wstring mPath, DiagramType mDiagramType) : currentPath(mPath) {
+
+}
 
 
 namespace Deleter {
