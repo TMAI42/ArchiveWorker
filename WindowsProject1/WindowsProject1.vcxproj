@@ -26,8 +26,8 @@
     <ClInclude Include="src\App.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ArchiveProject\ArchiveProject.vcxproj">
-      <Project>{eb8ac571-ac92-4724-bc6f-469fa0267fbb}</Project>
+    <ProjectReference Include="..\ArchiveLibProject\ArchiveLibProject.vcxproj">
+      <Project>{b3e9b7b8-9a31-42b9-b41a-455b4793d49c}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Helpers\Helpers.vcxproj">
       <Project>{429b544b-22f2-4fbe-9735-26cad7df8a7c}</Project>
@@ -39,6 +39,7 @@
     <ProjectGuid>{d71bcfd8-ac77-4841-a242-77892c5c7172}</ProjectGuid>
     <RootNamespace>WindowsProject1</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>ApplicationProject</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

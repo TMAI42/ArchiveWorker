@@ -1,14 +1,14 @@
 #include "ArchiveFactory.h"
 
-#include "Arhive/ArchiveSource/Archive.h"
+#include "Arhive/ArchiveSource/ArchiveClass.h"
 
-IArchive* ArchiveFactory::CreateArchive(std::wstring path, ArchiveType archiveType, DiagramType diagramType) {
+std::unique_ptr<IArchive> ArchiveFactory::CreateArchive(std::wstring path, ArchiveType archiveType) {
 
 	switch (archiveType) {
 
 	case ArchiveType::Standart:
 
-		return new Archive(path, diagramType);
+		return std::unique_ptr<IArchive> {new Archive(path)};
 
 	default:
 

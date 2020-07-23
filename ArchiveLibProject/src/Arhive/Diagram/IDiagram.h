@@ -21,7 +21,7 @@ public:
 
 	virtual void Draw() = 0;
 
-	
+	std::tuple<HWND, int, int> ReleseTarget();
 
 protected:
 	int targetWidth, targetHeight;

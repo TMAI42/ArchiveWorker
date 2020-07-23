@@ -10,9 +10,10 @@ processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #include <algorithm>
 #include <exception>
 #include <bitset>
-#include "Diagram/DiagramMaxSizeDep.h"
-#include "Diagram/DiagramArcSIzeDep.h"
-#include "Arhive/Archive.h"
+#include <vector>
+#include <memory>
+#include "../../Helpers/src/Helpers.h"
+#include "../../ArchiveLibProject/src/ArchiveFactory.h"
 
 class CApp {
 	enum class CTRL_ID{
@@ -76,10 +77,9 @@ private:
 	const int m_nAppHeight = 500;
 
 	//Archive stuff
-	std::unique_ptr<Archive_abstract> currentArchive;
+	std::unique_ptr<IArchive> currentArchive;
 	std::vector<std::wstring> addList;
 
 	//Diagram stuff
-	std::unique_ptr<Diagram> diagram;
 
 };

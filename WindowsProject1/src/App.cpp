@@ -1,4 +1,6 @@
 #include "App.h"
+#include <atlcomcli.h>
+#include <functional>
 
 
 
@@ -8,8 +10,6 @@ CApp::CApp() {
 
 		this->init_native_window_obj();
 		this->create_native_controle();
-
-		this->diagram.reset(new DiagramArcSIzeDep(this->m_hDrawArea, 300, 400));
 
 	}
 	catch (const std::exception& e) {
@@ -93,8 +93,7 @@ void CApp::DisplayDataFormArchive()
 			LB_ADDSTRING, 0, reinterpret_cast<LPARAM>(o.first.c_str()));
 	}
 
-	diagram->SetData(std::move(readData));
-	diagram->Draw();
+	currentArchive->DisplayArchiv();
 
 	UpdateWindow(this->m_hWnd);
 }
@@ -285,7 +284,7 @@ LRESULT CApp::window_proc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 	case WM_PAINT: {
 		
 		if (currentArchive != nullptr)
-			diagram->Draw();
+			currentArchive->DisplayArchiv();
 		UpdateWindow(this->m_hWnd);
 		break;
 
@@ -314,8 +313,12 @@ LRESULT CApp::window_proc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 				format == L"7z") {
 
 				SetWindowText(this->m_hPathBoxArchive, text.c_str());
-				currentArchive.reset(new Archive(text));
+
+				auto tempArchive = ArchiveFactory::CreateArchive(text, ArchiveType::Standart);
+				currentArchive.swap(tempArchive);
 				
+				currentArchive->SetDrawingObject(this->m_hDrawArea, 300, 400, DiagramType::ArcSizeDep);
+
 				DisplayDataFormArchive();
 
 			}
@@ -357,7 +360,12 @@ LRESULT CApp::window_proc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 					WCHAR pathToExe[500];
 					DWORD size = GetModuleFileNameW(NULL, pathToExe, 500);
 
-					currentArchive.reset(new Archive(std::wstring(pathToExe)));
+					auto tempArchive = ArchiveFactory::CreateArchive(pathToExe, ArchiveType::Standart);
+					currentArchive.swap(tempArchive);
+
+					currentArchive->SetDrawingObject(this->m_hDrawArea, 300, 400, DiagramType::ArcSizeDep);
+
+					DisplayDataFormArchive();
 				}
 
 				auto formatNum = SendMessage(this->m_hFormatBox, CB_GETCURSEL, 0, 0L);

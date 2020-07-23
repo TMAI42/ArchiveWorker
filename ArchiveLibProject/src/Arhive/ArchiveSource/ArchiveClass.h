@@ -10,17 +10,18 @@
 #include <iostream>
 #include <io.h>
 
-
+ 
 #include "Helpers.h"
-#include "archive.h"
+#include "ArchiveClass.h"
 #include "archive_entry.h"
 #include "../DiagramTypes.h"
+#include "../Diagram/IDiagram.h"
 
 
 class Archive : public IArchive {
 public:
 
-	Archive(std::wstring mPath, DiagramType mDiagramType);
+	Archive(std::wstring mPath);
 	~Archive() = default;
 
 	std::vector<std::pair<std::wstring, int>> ReadArchive() final;
@@ -28,7 +29,10 @@ public:
 	void Extract() final;
 	void AddToArchive(std::vector<std::wstring> filenames) final;
 
-	void ResetDiagramType() final;
+
+	void SetDrawingObject(HWND target, int width, int height, DiagramType newType) final;
+	void UpdateDiagramData() final;
+	void ResetDiagramType(DiagramType newType) final;
 	void DisplayArchiv() final;
 
 private:
@@ -36,7 +40,9 @@ private:
 	int CopyData(archive* ar, archive* aw);
 
 private:
-	
+	std::unique_ptr<IDiagram> currntDiagram;
+
+	std::vector<std::pair<std::wstring, int>> lastReadFiles;
 	std::wstring currentPath;
 	std::vector<std::wstring> resentExtractedFiles;
 };

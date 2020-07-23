@@ -1,5 +1,8 @@
 #include "IDiagram.h"
 
+#include <tuple>
+#include <algorithm>
+
 IDiagram::IDiagram(HWND hwnd, int width, int height)
     :target(hwnd), targetWidth(width), targetHeight(height) {
 
@@ -35,4 +38,9 @@ void IDiagram::SetData(std::vector<std::pair<std::wstring, int>> data)
         );
         brushes.push_back(temp);
     }
+}
+
+std::tuple<HWND, int, int> IDiagram::ReleseTarget()
+{
+    return {target, targetWidth, targetHeight};
 }
