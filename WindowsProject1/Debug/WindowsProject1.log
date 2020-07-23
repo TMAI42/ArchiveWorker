@@ -13,5 +13,5 @@ C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App
 C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(232,40): warning C4390: ';': empty controlled statement found; is this the intent?
 C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(241,40): warning C4390: ';': empty controlled statement found; is this the intent?
 C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(250,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(426): warning C4715: 'CApp::window_proc': not all control paths return a value
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(429): warning C4715: 'CApp::window_proc': not all control paths return a value
   WindowsProject1.vcxproj -> C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\Debug\ApplicationProject.exe

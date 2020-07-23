@@ -355,6 +355,13 @@ LRESULT CApp::window_proc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 				if ((addList.size() == 0))
 					break;
 
+				auto formatNum = SendMessage(this->m_hFormatBox, CB_GETCURSEL, 0, 0L);
+
+				if (formatNum < 0) {
+					//MessageBox(this->m_hWnd, L"Choose format!", L"Info", MB_ICONINFORMATION | MB_OK);
+					break;
+				}
+
 				if (currentArchive == nullptr) {
 
 					WCHAR pathToExe[500];
@@ -368,17 +375,13 @@ LRESULT CApp::window_proc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 					DisplayDataFormArchive();
 				}
 
-				auto formatNum = SendMessage(this->m_hFormatBox, CB_GETCURSEL, 0, 0L);
-
-				if (formatNum < 0) {
-					//MessageBox(this->m_hWnd, L"Choose format!", L"Info", MB_ICONINFORMATION | MB_OK);
-					break;
-				}
 
 				text += L"." + suportedFormats[formatNum];
 				currentArchive->WriteToArchive(addList, text, suportedFormats[formatNum]);
 
 				addList.clear();
+
+				SendMessage(this->m_hListArchive, LB_RESETCONTENT, 0, 0);
 
 				DisplayDataFormArchive();
 			}

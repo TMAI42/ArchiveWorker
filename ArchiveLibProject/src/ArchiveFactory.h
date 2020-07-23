@@ -9,7 +9,7 @@
 class ArchiveFactory{
 
 public:
-	static std::unique_ptr<IArchive> CreateArchive(std::wstring path, ArchiveType archiveType);
+	static IArchive* CreateArchive(std::wstring path, ArchiveType archiveType);
 
 };
 

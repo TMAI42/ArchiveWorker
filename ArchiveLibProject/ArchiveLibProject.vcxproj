@@ -123,7 +123,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>archive.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>D2D1.lib;archive.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)dep\archive\lib32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
