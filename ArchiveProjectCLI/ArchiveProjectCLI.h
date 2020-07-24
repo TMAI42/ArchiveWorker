@@ -1,19 +1,31 @@
 #pragma once
 #include "ArchiveFactory.h"
 
+
+
 using namespace System;
+using System::Collections::Generic::List;
 
 namespace ArchiveProjectCLI {
+
+
+	public value class FileInArchive {
+	public:
+		FileInArchive(String^ name, int size);
+		String^ name;
+		int size;
+	};
+
+
 	public ref class ArchiveExternal
 	{
 	public:
 
 		ArchiveExternal(String^ path, ArchiveType type);
-
-		std::vector<std::pair<std::wstring, int>> ReadArchive();
-		void WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format);
+		List<FileInArchive>^ ReadArchive();
+		void WriteToArchive(List<String^>^ filenames, String^ name, String^ format);
 		void Extract();
-		void AddToArchive(std::vector<std::wstring> filenames);
+		void AddToArchive(List<String^>^ filenames);
 
 		void SetDrawingObject(HWND target, int width, int height, DiagramType newType);
 		void UpdateDiagramData();
@@ -29,6 +41,9 @@ namespace ArchiveProjectCLI {
 
 		// TODO: Add your methods for this class here.
 	};
+
+
+
 }
 
 

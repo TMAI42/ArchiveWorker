@@ -29,6 +29,7 @@ namespace IntrfaceProject
     {
         public MainWindow()
         {
+            ArchiveExternal a = new ArchiveExternal("aaaaaaaa", 0);
             InitializeComponent();
         }
     }
