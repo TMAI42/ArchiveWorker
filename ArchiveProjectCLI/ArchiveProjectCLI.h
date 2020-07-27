@@ -8,6 +8,15 @@ using System::Collections::Generic::List;
 
 namespace ArchiveProjectCLI {
 
+	public enum class TypeOfArchive {
+		Standart
+	};
+
+	public enum class TypeOfDiagram {
+		ArchiveSizeDependency,
+		MaxSizeDependency
+	};
+
 
 	public value class FileInArchive {
 	public:
@@ -21,15 +30,15 @@ namespace ArchiveProjectCLI {
 	{
 	public:
 
-		ArchiveExternal(String^ path, ArchiveType type);
+		ArchiveExternal(String^ path, TypeOfArchive type);
 		List<FileInArchive>^ ReadArchive();
 		void WriteToArchive(List<String^>^ filenames, String^ name, String^ format);
 		void Extract();
 		void AddToArchive(List<String^>^ filenames);
 
-		void SetDrawingObject(HWND target, int width, int height, DiagramType newType);
+		void SetDrawingObject(HWND target, int width, int height, TypeOfDiagram Type);
 		void UpdateDiagramData();
-		void ResetDiagramType(DiagramType newType);
+		void ResetDiagramType(TypeOfDiagram newType);
 		void DisplayArchiv();
 
 	protected:
@@ -41,6 +50,7 @@ namespace ArchiveProjectCLI {
 
 		// TODO: Add your methods for this class here.
 	};
+
 
 
 

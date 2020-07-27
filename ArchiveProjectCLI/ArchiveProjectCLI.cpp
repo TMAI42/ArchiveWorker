@@ -1,20 +1,7 @@
 #include "pch.h"
 #include <msclr\marshal_cppstd.h>
-#include <algorithm>
 
 #include "ArchiveProjectCLI.h"
-
-using namespace System::Runtime::InteropServices;
-
-
-//void StringToStlWString(System::String const^ s, std::wstring& os)
-//{
-//	String^ string = const_cast<String^>(s);
-//	const wchar_t* chars = reinterpret_cast<const wchar_t*>((Marshal::StringToHGlobalUni(string)).ToPointer());
-//	os = chars;
-//	Marshal::FreeHGlobal(IntPtr((void*)chars));
-//
-//}
 
 
 String^ WPtrToString(wchar_t const* pData, int length) {
@@ -31,8 +18,8 @@ String^ WPtrToString(wchar_t const* pData, int length) {
 	return ret;
 }
 
-ArchiveProjectCLI::ArchiveExternal::ArchiveExternal(String^ path, ArchiveType type)
-	:current(ArchiveFactory::CreateArchive(msclr::interop::marshal_as<std::wstring>(path), type)){}
+ArchiveProjectCLI::ArchiveExternal::ArchiveExternal(String^ path, TypeOfArchive type)
+	:current(ArchiveFactory::CreateArchive(msclr::interop::marshal_as<std::wstring>(path),static_cast<ArchiveType>(type))){}
 
 
 List<ArchiveProjectCLI::FileInArchive>^ ArchiveProjectCLI::ArchiveExternal::ReadArchive()
@@ -79,9 +66,9 @@ void ArchiveProjectCLI::ArchiveExternal::AddToArchive(List<String^>^ filenames)
 	current->AddToArchive(castedVector);
 }
 
-void ArchiveProjectCLI::ArchiveExternal::SetDrawingObject(HWND target, int width, int height, DiagramType newType)
+void ArchiveProjectCLI::ArchiveExternal::SetDrawingObject(HWND target, int width, int height, TypeOfDiagram newType)
 {
-	current->SetDrawingObject(target, width, height, newType);
+	current->SetDrawingObject(target, width, height, static_cast<DiagramType>(newType));
 }
 
 void ArchiveProjectCLI::ArchiveExternal::UpdateDiagramData()
@@ -89,9 +76,9 @@ void ArchiveProjectCLI::ArchiveExternal::UpdateDiagramData()
 	current->UpdateDiagramData();
 }
 
-void ArchiveProjectCLI::ArchiveExternal::ResetDiagramType(DiagramType newType)
+void ArchiveProjectCLI::ArchiveExternal::ResetDiagramType(TypeOfDiagram newType)
 {
-	current->ResetDiagramType(newType);
+	current->ResetDiagramType(static_cast<DiagramType>(newType));
 }
 
 void ArchiveProjectCLI::ArchiveExternal::DisplayArchiv()

@@ -1,17 +1,1 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (WindowsProject1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  App.cpp
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(136,19): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(152,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(161,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(170,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(179,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(188,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(196,83): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(205,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(214,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(223,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(232,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(241,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(250,40): warning C4390: ';': empty controlled statement found; is this the intent?
-C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(429): warning C4715: 'CApp::window_proc': not all control paths return a value
-  WindowsProject1.vcxproj -> C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\Debug\ApplicationProject.exe
+﻿

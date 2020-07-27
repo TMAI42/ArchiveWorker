@@ -29,8 +29,9 @@ namespace IntrfaceProject
     {
         public MainWindow()
         {
-            ArchiveExternal a = new ArchiveExternal("aaaaaaaa", 0);
+            ArchiveExternal a = new ArchiveExternal("aaaaaaaa", TypeOfArchive.Standart);
             InitializeComponent();
         }
+
     }
 }
