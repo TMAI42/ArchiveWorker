@@ -18,6 +18,10 @@ String^ WPtrToString(wchar_t const* pData, int length) {
 	return ret;
 }
 
+ArchiveProjectCLI::ArchiveExternal::~ArchiveExternal() {
+	delete current;
+}
+
 ArchiveProjectCLI::ArchiveExternal::ArchiveExternal(String^ path, TypeOfArchive type)
 	:current(ArchiveFactory::CreateArchive(msclr::interop::marshal_as<std::wstring>(path),static_cast<ArchiveType>(type))){}
 
@@ -66,9 +70,9 @@ void ArchiveProjectCLI::ArchiveExternal::AddToArchive(List<String^>^ filenames)
 	current->AddToArchive(castedVector);
 }
 
-void ArchiveProjectCLI::ArchiveExternal::SetDrawingObject(HWND target, int width, int height, TypeOfDiagram newType)
+void ArchiveProjectCLI::ArchiveExternal::SetDrawingObject(IntPtr^ target, int width, int height, TypeOfDiagram newType)
 {
-	current->SetDrawingObject(target, width, height, static_cast<DiagramType>(newType));
+	current->SetDrawingObject(reinterpret_cast<HWND>(target->ToPointer()), width, height, static_cast<DiagramType>(newType));
 }
 
 void ArchiveProjectCLI::ArchiveExternal::UpdateDiagramData()
@@ -86,9 +90,18 @@ void ArchiveProjectCLI::ArchiveExternal::DisplayArchiv()
 	current->DisplayArchiv();
 }
 
-ArchiveProjectCLI::ArchiveExternal::!ArchiveExternal()
-{
-	current->~IArchive();
-}
 
 ArchiveProjectCLI::FileInArchive::FileInArchive(String^ mName, int mSize):name(mName), size(mSize){}
+
+void ArchiveProjectCLI::FileInArchive::Name::set(String^ value) {
+	name =value;
+}
+String^ ArchiveProjectCLI::FileInArchive::Name::get() {
+	return name;
+}
+int ArchiveProjectCLI::FileInArchive::Size::get() {
+	return size;
+}
+void ArchiveProjectCLI::FileInArchive::Size::set(int value) {
+	size = value;
+}

@@ -19,18 +19,51 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" >
-            <Button MinWidth="30" Content="Open" ></Button>
-            <Button MinWidth="30" Content="Add" ></Button>
+            <Button MinWidth="30" Content="Open" Click="OpenArchive"></Button>
+            <Button MinWidth="30" Content="Add" Click="AddToList"></Button>
+            <ComboBox Name="Type" VerticalAlignment="Top">
+                <TextBlock>zip</TextBlock>
+                <TextBlock>7zip</TextBlock>
+                <TextBlock>pax</TextBlock>
+                <TextBlock>lzip</TextBlock>
+                <TextBlock>iso</TextBlock>
+            </ComboBox>
         </StackPanel>
+
+        <ListBox Grid.Column="0" Grid.Row="1" Name="AddList" BorderBrush="Black">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding name, UpdateSourceTrigger=PropertyChanged}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <ListBox Grid.Column="1" Grid.Row="1" Name="Archive" BorderBrush="Black">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Name}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         
-        <ListBox Grid.Column="0" Grid.Row="1" Padding="1"></ListBox>
-        <ListBox Grid.Column="1" Grid.Row="1" Padding="1"></ListBox>
-        <Canvas Grid.Column="2" Grid.Row="1"></Canvas>
-        
+        <Canvas Grid.Column="2" Grid.Row="1" Name="Diagram"></Canvas>
+
         <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" Grid.ColumnSpan="2">
-            <Button MinWidth="30" Content="Write new Archive" />
-            <Button MinWidth="30" Content="Add to Archine"  />
-            <Button MinWidth="30" Content="Extruct" />
+            <Button MinWidth="30" Content="Write new Archive" Click="WriteNew"/>
+            <Button MinWidth="30" Content="Add to Archive" Click="AddToOpen"/>
+            <Button MinWidth="30" Content="Extract" Click="Extract" />
         </StackPanel>
     </Grid>
 </Window>

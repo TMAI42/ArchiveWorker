@@ -21,28 +21,38 @@ namespace ArchiveProjectCLI {
 	public value class FileInArchive {
 	public:
 		FileInArchive(String^ name, int size);
+
+		property String^ Name {
+			String^ get();
+			void set(String^ value);
+		}
+
+		property int Size {
+			int get();
+			void set(int value);
+		}
+
+	private:
 		String^ name;
 		int size;
 	};
 
 
-	public ref class ArchiveExternal
+	public ref class ArchiveExternal : IDisposable
 	{
 	public:
 
+		~ArchiveExternal();
 		ArchiveExternal(String^ path, TypeOfArchive type);
 		List<FileInArchive>^ ReadArchive();
 		void WriteToArchive(List<String^>^ filenames, String^ name, String^ format);
 		void Extract();
 		void AddToArchive(List<String^>^ filenames);
 
-		void SetDrawingObject(HWND target, int width, int height, TypeOfDiagram Type);
+		void SetDrawingObject(IntPtr^ target, int width, int height, TypeOfDiagram Type);
 		void UpdateDiagramData();
 		void ResetDiagramType(TypeOfDiagram newType);
 		void DisplayArchiv();
-
-	protected:
-		!ArchiveExternal();
 
 	private:
 		IArchive* current;
