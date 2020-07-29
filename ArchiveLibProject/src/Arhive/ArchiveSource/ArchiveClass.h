@@ -26,7 +26,7 @@ public:
 
 	std::vector<std::pair<std::wstring, int>> ReadArchive() final;
 	void WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format) final;
-	void Extract() final;
+	void Extract(std::wstring extPath) final;
 	void AddToArchive(std::vector<std::wstring> filenames) final;
 
 

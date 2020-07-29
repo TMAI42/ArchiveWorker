@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:local="clr-namespace:IntrfaceProject"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"  ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -29,36 +30,34 @@
                 <TextBlock>iso</TextBlock>
             </ComboBox>
         </StackPanel>
-
+        <TextBox Grid.Column="1" Grid.Row="1" Text="Name" Height="20" VerticalAlignment="Top" BorderBrush="Black"></TextBox>
         <ListBox Grid.Column="0" Grid.Row="1" Name="AddList" BorderBrush="Black">
-            <ListBox.ItemTemplate>
+            <!--<ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding name, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="{Binding ItemToAddings}" />
                     </Grid>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
+            </ListBox.ItemTemplate>-->
         </ListBox>
 
         <ListBox Grid.Column="1" Grid.Row="1" Name="Archive" BorderBrush="Black">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Name}" />
+                       <TextBlock Text="{Binding Name}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         
-        <Canvas Grid.Column="2" Grid.Row="1" Name="Diagram"></Canvas>
+        <Grid Grid.Column="2" Grid.Row="1" Name="Diagram">
+            <WindowsFormsHost Name="wfhSample">
+                <WindowsFormsHost.Child>
+                    <wf:TextBox Name="qwr"/>
+                </WindowsFormsHost.Child>
+            </WindowsFormsHost>
+        </Grid>
 
         <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" Grid.ColumnSpan="2">
             <Button MinWidth="30" Content="Write new Archive" Click="WriteNew"/>

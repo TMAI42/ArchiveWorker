@@ -53,9 +53,9 @@ void ArchiveProjectCLI::ArchiveExternal::WriteToArchive(List<String^>^ filenames
 
 }
 
-void ArchiveProjectCLI::ArchiveExternal::Extract()
+void ArchiveProjectCLI::ArchiveExternal::Extract(String^ extPath)
 {
-	current->Extract();
+	current->Extract(msclr::interop::marshal_as<std::wstring>(extPath));
 }
 
 void ArchiveProjectCLI::ArchiveExternal::AddToArchive(List<String^>^ filenames)

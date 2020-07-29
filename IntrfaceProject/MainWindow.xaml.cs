@@ -15,11 +15,7 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 
 using ArchiveProjectCLI;
-
-
-
-
-
+using IntrfaceProject.Models;
 
 namespace IntrfaceProject
 {
@@ -29,12 +25,13 @@ namespace IntrfaceProject
     public partial class MainWindow : Window
     {
         private ArchiveExternal current;
-        private List<IntrfaceProject.Models.ItemToAdding> addList;
+        private List<string> addList;
+
         public MainWindow()
         {
             InitializeComponent();
-            addList = new List<IntrfaceProject.Models.ItemToAdding>();
-            AddList.ItemsSource = addList;
+            addList = new List<string>();
+           
         }
 
         private void WriteNew(object sender, RoutedEventArgs e)
@@ -48,18 +45,24 @@ namespace IntrfaceProject
 
             current.WriteToArchive(addList, "test", Type.Text);
 
-
+            Archive.ItemsSource = current.ReadArchive();
 
         }
 
         private void AddToOpen(object sender, RoutedEventArgs e)
         {
+            if (current == null)
+                return;
 
+            current.AddToArchive(addList);
         }
 
         private void Extract(object sender, RoutedEventArgs e)
         {
+            if (current == null)
+                return;
 
+            current.Extract(Browse());
         }
 
         private void AddToList(object sender, RoutedEventArgs e)
@@ -70,12 +73,18 @@ namespace IntrfaceProject
                 return;
             }
 
-            addList.Add(
-                new Models.ItemToAdding()
-                {
-                    name = tmp.Substring(tmp.LastIndexOf("\\") + 1),
-                    path = tmp.Substring(0, tmp.Length - tmp.LastIndexOf("\\") + 1)
-                });
+            addList.Add(tmp);
+
+            //List<ItemToAdding> itemsToAddingTmp = new List<ItemToAdding>();
+
+            //foreach (var path in addList)
+            //    ttttt.itemsToAdding.Add(new ItemToAdding(path));
+            AddList.ItemsSource = null;
+            AddList.ItemsSource = addList;
+          
+            //AddList.ItemsSource = ttttt.itemsToAdding;
+            //AddList.SourceUpdated(() => { });
+
 
         }
 
@@ -87,26 +96,31 @@ namespace IntrfaceProject
                 return;
             }
 
+            if (current != null)
+                current.Dispose();
+
             current = new ArchiveExternal(tmp, TypeOfArchive.Standart);
 
-            //Window window = Window.GetWindow(Diagram);
+            //Window window = Window.GetWindow(qwr);
+            //qwr.Handle;
             //var wih = new System.Windows.Interop.WindowInteropHelper(window);
-            //IntPtr hWnd = wih.Handle;
-            //current.SetDrawingObject(hWnd, (int)window.Width, (int)window.Height, TypeOfDiagram.ArchiveSizeDependency);
+
+            IntPtr hWnd = wfhSample.Child.Handle;
+            current.SetDrawingObject(hWnd, 500, 700, TypeOfDiagram.MaxSizeDependency);
 
             //using (var archive = new ArchiveExternal(tmp, TypeOfArchive.Standart))
             //{
             Archive.ItemsSource = current.ReadArchive();
 
-            //current.DisplayArchiv();
-            //}
-            //GetWindow(this).UpdateLayout();
-        }
+            current.DisplayArchiv();
+        //}
+        GetWindow(this).UpdateLayout();
+    }
 
         private string Browse()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Text files (*.zip)|*.zip|All files (*.*)|*.*";
+            openFileDialog.Filter = "Zip files (*.zip)|*.zip, *.tar|All files (*.*)|*.*";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
             if (openFileDialog.ShowDialog() == true)
@@ -116,5 +130,9 @@ namespace IntrfaceProject
 
             return null;
         }
+
+
+       
+
     }
 }

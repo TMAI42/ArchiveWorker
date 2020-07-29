@@ -1,4 +1,5 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (WindowsProject1.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Source.cpp
   App.cpp
 C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(136,19): warning C4390: ';': empty controlled statement found; is this the intent?
 C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(152,40): warning C4390: ';': empty controlled statement found; is this the intent?
@@ -17,3 +18,6 @@ C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\memory(1870,10): message : see declaration of 'std::unique_ptr<IArchive,std::default_delete<IArchive>>::swap'
 C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(371,37): error C2664: 'void std::unique_ptr<IArchive,std::default_delete<IArchive>>::swap(std::unique_ptr<IArchive,std::default_delete<IArchive>> &) noexcept': cannot convert argument 1 from 'IArchive *' to 'std::unique_ptr<IArchive,std::default_delete<IArchive>> &'
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include\memory(1870,10): message : see declaration of 'std::unique_ptr<IArchive,std::default_delete<IArchive>>::swap'
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\WindowsProject1\src\App.cpp(395,28): error C2660: 'IArchive::Extract': function does not take 0 arguments
+C:\Users\Andrey Strelchenko\source\repos\WindowsProject1\ArchiveLibProject\src\Arhive\ArchiveSource\IArchive.h(16,15): message : see declaration of 'IArchive::Extract'
+  Generating Code...

@@ -7,15 +7,20 @@ using System.Windows;
 
 namespace IntrfaceProject.Models
 {
-    class ItemToAdding : DependencyObject
+    class ItemToAdding
     {
-        public string name { get; set; }
-        public string path { get; set; }
+        private string fullName;
+        public string name
+        {
+            get
+            {
+                return fullName.Substring(fullName.LastIndexOf("\\") + 1);
+            }
+        }
 
-        public static readonly DependencyProperty MyPropertyProperty =
-         DependencyProperty.Register("name", typeof(string), typeof(ItemToAdding), new PropertyMetadata(""));
-
-        
-
+        public ItemToAdding(string path)
+        {
+            fullName = path;
+        }
     }
 }

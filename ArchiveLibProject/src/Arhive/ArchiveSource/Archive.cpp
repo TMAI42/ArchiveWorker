@@ -124,7 +124,7 @@ void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring n
 }
 
 
-void Archive::Extract() {
+void Archive::Extract(std::wstring extPath) {
 
 	const int BUFFER_SIZE = 8192;
 	const int SIZE_OF_READING_DATA = 102400;
@@ -163,6 +163,7 @@ void Archive::Extract() {
 		if (r < ARCHIVE_WARN)
 			return;
 
+
 		auto newPath = Helpers::Converters::WStringToStr(Helpers::ArchNameToFolder(currentPath))
 			+ std::string(archive_entry_pathname(entry));
 
@@ -192,7 +193,7 @@ void Archive::Extract() {
 
 void Archive::AddToArchive(std::vector<std::wstring> filenames) {
 
-	Extract();
+	Extract(L"qqqqqq");
 
 	for (auto& file : resentExtractedFiles)
 		filenames.push_back(file);
