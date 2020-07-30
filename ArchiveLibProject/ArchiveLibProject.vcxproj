@@ -25,6 +25,7 @@
     <ClCompile Include="src\Arhive\Diagram\DiagramArcSIzeDep.cpp" />
     <ClCompile Include="src\Arhive\Diagram\DiagramMaxSizeDep.cpp" />
     <ClCompile Include="src\Arhive\Diagram\IDiagram.cpp" />
+    <ClCompile Include="src\Arhive\Diagram\TestGrid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ArchiveFactory.h" />
@@ -36,6 +37,7 @@
     <ClInclude Include="src\Arhive\Diagram\DiagramArcSIzeDep.h" />
     <ClInclude Include="src\Arhive\Diagram\DiagramMaxSizeDep.h" />
     <ClInclude Include="src\Arhive\Diagram\IDiagram.h" />
+    <ClInclude Include="src\Arhive\Diagram\TestGrid.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Helpers\Helpers.vcxproj">

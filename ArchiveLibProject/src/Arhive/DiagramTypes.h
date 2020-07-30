@@ -2,5 +2,6 @@
 
 enum class DiagramType {
 	ArcSizeDep,
-	MaxSizeDep
+	MaxSizeDep, 
+	TestGrid
 };

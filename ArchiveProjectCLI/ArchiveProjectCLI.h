@@ -14,7 +14,8 @@ namespace ArchiveProjectCLI {
 
 	public enum class TypeOfDiagram {
 		ArchiveSizeDependency,
-		MaxSizeDependency
+		MaxSizeDependency, 
+		TestGrid
 	};
 
 
@@ -45,7 +46,7 @@ namespace ArchiveProjectCLI {
 		~ArchiveExternal();
 		ArchiveExternal(String^ path, TypeOfArchive type);
 		List<FileInArchive>^ ReadArchive();
-		void WriteToArchive(List<String^>^ filenames, String^ name, String^ format);
+		void WriteToArchive(List<String^>^ filenames, String^ name, String^ format, String^ extPath);
 		void Extract(String^ extPath);
 		void AddToArchive(List<String^>^ filenames);
 

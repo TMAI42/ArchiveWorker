@@ -79,7 +79,7 @@ std::vector<std::pair<std::wstring, int>> Archive::ReadArchive() {
 }
 
 //TODO: error handler
-void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format) {
+void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format, std::wstring extPath) {
 
 	std::unique_ptr<archive, std::function<void(archive*)>> archivePtr(nullptr, Deleter::WriteDeliter);
 	archive_entry* entry;
@@ -87,14 +87,14 @@ void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring n
 	char buff[8192];
 	int len;
 
-	this->currentPath = Helpers::GetPathFromAbsPath(this->currentPath) + name;
+	this->currentPath = extPath + name;
 	auto fd = CreateFileA(Helpers::Converters::WStringToStr(this->currentPath).c_str(),
 		GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	CloseHandle(fd);
 
 	archivePtr.reset(archive_write_new());
-	archive_write_set_format_zip(archivePtr.get());
-	archive_write_zip_set_compression_deflate(archivePtr.get());
+	//archive_write_set_format_zip(archivePtr.get());
+	//archive_write_zip_set_compression_deflate(archivePtr.get());
 	archive_write_set_format_option(archivePtr.get(),
 		Helpers::Converters::WStringToStr(format).c_str(), "compression-level", "9");
 	auto r = archive_write_open_filename(archivePtr.get(),
@@ -164,7 +164,7 @@ void Archive::Extract(std::wstring extPath) {
 			return;
 
 
-		auto newPath = Helpers::Converters::WStringToStr(Helpers::ArchNameToFolder(currentPath))
+		auto newPath = Helpers::Converters::WStringToStr(extPath)  
 			+ std::string(archive_entry_pathname(entry));
 
 		resentExtractedFiles.push_back(Helpers::Converters::StringToWStr(newPath));
@@ -193,12 +193,15 @@ void Archive::Extract(std::wstring extPath) {
 
 void Archive::AddToArchive(std::vector<std::wstring> filenames) {
 
-	Extract(L"qqqqqq");
+	Extract(Helpers::GetPathFromAbsPath(currentPath));
 
 	for (auto& file : resentExtractedFiles)
 		filenames.push_back(file);
 
-	WriteToArchive(filenames, Helpers::GetNameFromPath(currentPath), Helpers::GetFormatFromPath(currentPath));
+	WriteToArchive(filenames, 
+		Helpers::GetNameFromPath(currentPath), 
+		Helpers::GetFormatFromPath(currentPath), 
+		Helpers::GetPathFromAbsPath(currentPath));
 
 	for (auto& file : resentExtractedFiles)
 		DeleteFile(file.c_str());

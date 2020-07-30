@@ -9,7 +9,7 @@
         Title="MainWindow" Height="450" Width="800"  ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="1.2*"></RowDefinition>
             <RowDefinition Height="21*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
@@ -22,6 +22,7 @@
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" >
             <Button MinWidth="30" Content="Open" Click="OpenArchive"></Button>
             <Button MinWidth="30" Content="Add" Click="AddToList"></Button>
+            <TextBox x:Name ="ArchiveName" Text="test" Width="60"></TextBox>
             <ComboBox Name="Type" VerticalAlignment="Top">
                 <TextBlock>zip</TextBlock>
                 <TextBlock>7zip</TextBlock>
@@ -30,18 +31,10 @@
                 <TextBlock>iso</TextBlock>
             </ComboBox>
         </StackPanel>
-        <TextBox Grid.Column="1" Grid.Row="1" Text="Name" Height="20" VerticalAlignment="Top" BorderBrush="Black"></TextBox>
-        <ListBox Grid.Column="0" Grid.Row="1" Name="AddList" BorderBrush="Black">
-            <!--<ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,2">
-                        <TextBlock Text="{Binding ItemToAddings}" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>-->
+        <ListBox Grid.Column="0" Grid.Row="1" Margin="5" Name="AddList" BorderBrush="Black">
         </ListBox>
 
-        <ListBox Grid.Column="1" Grid.Row="1" Name="Archive" BorderBrush="Black">
+        <ListBox Grid.Column="1" Grid.Row="1" Margin="5" Name="Archive" BorderBrush="Black">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
@@ -50,11 +43,11 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        
-        <Grid Grid.Column="2" Grid.Row="1" Name="Diagram">
+
+        <Grid Grid.Column="2" Grid.Row="1" Margin="5" Name="Diagram">
             <WindowsFormsHost Name="wfhSample">
                 <WindowsFormsHost.Child>
-                    <wf:TextBox Name="qwr"/>
+                    <wf:PictureBox x:Name="qwe" BorderStyle="FixedSingle" Height="348" Width="251" Dock="None" SizeMode="AutoSize"></wf:PictureBox>
                 </WindowsFormsHost.Child>
             </WindowsFormsHost>
         </Grid>

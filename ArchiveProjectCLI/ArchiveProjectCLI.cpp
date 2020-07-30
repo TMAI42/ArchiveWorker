@@ -38,7 +38,7 @@ List<ArchiveProjectCLI::FileInArchive>^ ArchiveProjectCLI::ArchiveExternal::Read
 	return castedList;
 }
 
-void ArchiveProjectCLI::ArchiveExternal::WriteToArchive(List<String^>^ filenames, String^ name, String^ format)
+void ArchiveProjectCLI::ArchiveExternal::WriteToArchive(List<String^>^ filenames, String^ name, String^ format, String^ extPath)
 {
 	std::vector<std::wstring> castedVector;
 
@@ -49,7 +49,8 @@ void ArchiveProjectCLI::ArchiveExternal::WriteToArchive(List<String^>^ filenames
 
 	current->WriteToArchive(castedVector,
 		msclr::interop::marshal_as<std::wstring>(name),
-		msclr::interop::marshal_as<std::wstring>(format));
+		msclr::interop::marshal_as<std::wstring>(format),
+		msclr::interop::marshal_as<std::wstring>(extPath));
 
 }
 

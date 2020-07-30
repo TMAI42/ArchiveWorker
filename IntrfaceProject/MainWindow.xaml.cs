@@ -31,21 +31,43 @@ namespace IntrfaceProject
         {
             InitializeComponent();
             addList = new List<string>();
-           
+
         }
 
         private void WriteNew(object sender, RoutedEventArgs e)
         {
-            if (Type.SelectedItem == null|| addList.Count()==0)
+            if (Type.SelectedItem == null)
+            {
+                MessageBox.Show("Select type!", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
+            }
+
+            if (addList.Count == 0)
+            {
+                MessageBox.Show("Add elemets to addlist!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+
+            if (ArchiveName.Text.Length == 0)
+            {
+                MessageBox.Show("Add name of new Archive!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
             if (current == null)
-                current = new ArchiveExternal(System.Reflection.Assembly.GetExecutingAssembly().Location, 
+                current = new ArchiveExternal(System.Reflection.Assembly.GetExecutingAssembly().Location,
                     TypeOfArchive.Standart);
 
-            current.WriteToArchive(addList, "test", Type.Text);
+            var tmp = FolderBrowse();
 
-            Archive.ItemsSource = current.ReadArchive();
+            if (tmp == null)
+                return;
+
+            current.WriteToArchive(addList, ArchiveName.Text + "." + Type.Text, Type.Text, tmp + "\\");
+
+            DisplayAchiveData();
+
 
         }
 
@@ -60,13 +82,23 @@ namespace IntrfaceProject
         private void Extract(object sender, RoutedEventArgs e)
         {
             if (current == null)
+            {
+                MessageBox.Show("Open archive!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var tmp = FolderBrowse();
+
+            if (tmp == null)
                 return;
 
-            current.Extract(Browse());
+            current.Extract(tmp + "\\");
+            MessageBox.Show("Exracted!", "", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void AddToList(object sender, RoutedEventArgs e)
         {
+
             var tmp = Browse();
             if (tmp == null)
             {
@@ -75,16 +107,8 @@ namespace IntrfaceProject
 
             addList.Add(tmp);
 
-            //List<ItemToAdding> itemsToAddingTmp = new List<ItemToAdding>();
-
-            //foreach (var path in addList)
-            //    ttttt.itemsToAdding.Add(new ItemToAdding(path));
             AddList.ItemsSource = null;
             AddList.ItemsSource = addList;
-          
-            //AddList.ItemsSource = ttttt.itemsToAdding;
-            //AddList.SourceUpdated(() => { });
-
 
         }
 
@@ -101,26 +125,15 @@ namespace IntrfaceProject
 
             current = new ArchiveExternal(tmp, TypeOfArchive.Standart);
 
-            //Window window = Window.GetWindow(qwr);
-            //qwr.Handle;
-            //var wih = new System.Windows.Interop.WindowInteropHelper(window);
+            DisplayAchiveData();
 
-            IntPtr hWnd = wfhSample.Child.Handle;
-            current.SetDrawingObject(hWnd, 500, 700, TypeOfDiagram.MaxSizeDependency);
-
-            //using (var archive = new ArchiveExternal(tmp, TypeOfArchive.Standart))
-            //{
-            Archive.ItemsSource = current.ReadArchive();
-
-            current.DisplayArchiv();
-        //}
-        GetWindow(this).UpdateLayout();
-    }
+            GetWindow(this).UpdateLayout();
+        }
 
         private string Browse()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Zip files (*.zip)|*.zip, *.tar|All files (*.*)|*.*";
+            openFileDialog.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
             if (openFileDialog.ShowDialog() == true)
@@ -131,8 +144,45 @@ namespace IntrfaceProject
             return null;
         }
 
+        string FolderBrowse()
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                System.Windows.Forms.DialogResult result = dialog.ShowDialog();
 
-       
+                if (result == System.Windows.Forms.DialogResult.OK)
+                    return dialog.SelectedPath;
+            }
+
+            return null;
+        }
+
+        void DisplayAchiveData()
+        {
+            IntPtr hWnd = wfhSample.Child.Handle;
+
+            var a = Diagram.ActualWidth;
+
+            var b = Diagram.ActualHeight;
+
+
+            var p = qwe.Height;
+
+            var c = wfhSample.Child.Width;
+
+            var d = wfhSample.Child.Height;
+
+            var e = wfhSample.ActualHeight;
+
+            var f = wfhSample.ActualWidth;
+            
+            current.SetDrawingObject(hWnd, (int)f, (int)e, TypeOfDiagram.ArchiveSizeDependency);
+
+            Archive.ItemsSource = current.ReadArchive();
+
+            current.DisplayArchiv();
+        }
+
 
     }
 }
