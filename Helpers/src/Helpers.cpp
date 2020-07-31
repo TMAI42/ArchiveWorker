@@ -54,6 +54,42 @@ std::string Helpers::GetFormatFromPath(std::string mString)
     return mString.substr(a + 1, mString.size() - a - 1);
 }
 
+std::wstring Helpers::GetRawName(std::wstring mString)
+{
+    auto a = mString.rfind(L'.');
+    auto b = mString.rfind(L'\\');
+
+    if (a < 0) {
+        if (b < 0) {
+            return mString;
+        }
+        if (b == (mString.size() - 1)) {
+            return mString.substr(0, mString.size() - 1).substr(mString.rfind(L'\\') + 1);
+        }
+        return GetNameFromPath(mString);
+    } 
+
+    return mString.substr(b + 1, a - b - 1);
+}
+
+std::string Helpers::GetRawName(std::string mString)
+{
+    auto a = mString.rfind('.');
+    auto b = mString.rfind('\\');
+
+    if (a < 0) {
+        if (b < 0) {
+            return mString;
+        }
+        if (b == (mString.size() - 1)) {
+            return mString.substr(0, mString.size() - 1).substr(mString.rfind(L'\\') + 1);
+        }
+        return GetNameFromPath(mString);
+    }
+
+    return mString.substr(b + 1, a - b - 1);
+}
+
 std::wstring Helpers::GetFormatFromPath(std::wstring mString)
 {
     auto a = mString.rfind('.');

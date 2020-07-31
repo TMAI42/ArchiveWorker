@@ -15,6 +15,7 @@ public:
 	virtual void WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format, std::wstring extPath) = 0;
 	virtual void Extract(std::wstring extPath) = 0;
 	virtual void AddToArchive(std::vector<std::wstring> filenames) = 0;
+	virtual void ConvertTo(std::wstring extPath, std::wstring newFormat) = 0;
 
 	virtual void SetDrawingObject(HWND target, int width, int height, DiagramType newType) = 0;
 	virtual void UpdateDiagramData() = 0;

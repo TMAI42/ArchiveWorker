@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 
 using ArchiveProjectCLI;
-using IntrfaceProject.Models;
+
 
 namespace IntrfaceProject
 {
@@ -130,6 +130,26 @@ namespace IntrfaceProject
             GetWindow(this).UpdateLayout();
         }
 
+
+        private void ConvertToZip(object sender, RoutedEventArgs e)
+        {
+            if (current == null)
+            {
+                MessageBox.Show("Open archive!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var tmp = FolderBrowse();
+
+            if (tmp == null)
+                return;
+
+            current.ConvertTo(tmp + "\\", "zip");
+
+            MessageBox.Show("Converted to Zip!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+
+        }
+
         private string Browse()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -160,29 +180,13 @@ namespace IntrfaceProject
         void DisplayAchiveData()
         {
             IntPtr hWnd = wfhSample.Child.Handle;
-
-            var a = Diagram.ActualWidth;
-
-            var b = Diagram.ActualHeight;
-
-
-            var p = qwe.Height;
-
-            var c = wfhSample.Child.Width;
-
-            var d = wfhSample.Child.Height;
-
-            var e = wfhSample.ActualHeight;
-
-            var f = wfhSample.ActualWidth;
             
-            current.SetDrawingObject(hWnd, (int)f, (int)e, TypeOfDiagram.ArchiveSizeDependency);
+            current.SetDrawingObject(hWnd, (int)wfhSample.ActualWidth, (int)wfhSample.ActualHeight, TypeOfDiagram.ArchiveSizeDependency);
 
             Archive.ItemsSource = current.ReadArchive();
 
             current.DisplayArchiv();
         }
-
 
     }
 }

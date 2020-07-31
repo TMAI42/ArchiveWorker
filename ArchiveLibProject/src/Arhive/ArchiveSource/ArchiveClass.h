@@ -28,7 +28,7 @@ public:
 	void WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format, std::wstring extPath) final;
 	void Extract(std::wstring extPath) final;
 	void AddToArchive(std::vector<std::wstring> filenames) final;
-
+	void ConvertTo(std::wstring extPath, std::wstring newFormat) final;
 
 	void SetDrawingObject(HWND target, int width, int height, DiagramType newType) final;
 	void UpdateDiagramData() final;

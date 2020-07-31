@@ -49,6 +49,7 @@ namespace ArchiveProjectCLI {
 		void WriteToArchive(List<String^>^ filenames, String^ name, String^ format, String^ extPath);
 		void Extract(String^ extPath);
 		void AddToArchive(List<String^>^ filenames);
+		void ConvertTo(String^ extPath, String^ format);
 
 		void SetDrawingObject(IntPtr^ target, int width, int height, TypeOfDiagram Type);
 		void UpdateDiagramData();

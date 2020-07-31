@@ -20,6 +20,9 @@ namespace Helpers {
 
     std::string GetFormatFromPath(std::string);
 
+    std::wstring GetRawName(std::wstring);
+
+    std::string GetRawName(std::string);
 
     namespace Converters {
 

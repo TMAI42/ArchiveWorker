@@ -71,6 +71,11 @@ void ArchiveProjectCLI::ArchiveExternal::AddToArchive(List<String^>^ filenames)
 	current->AddToArchive(castedVector);
 }
 
+void ArchiveProjectCLI::ArchiveExternal::ConvertTo(String^ extPath, String^ format)
+{
+	current->ConvertTo(msclr::interop::marshal_as<std::wstring>(extPath), msclr::interop::marshal_as<std::wstring>(format));
+}
+
 void ArchiveProjectCLI::ArchiveExternal::SetDrawingObject(IntPtr^ target, int width, int height, TypeOfDiagram newType)
 {
 	current->SetDrawingObject(reinterpret_cast<HWND>(target->ToPointer()), width, height, static_cast<DiagramType>(newType));
