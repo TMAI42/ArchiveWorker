@@ -5,7 +5,7 @@ class DiagramArcSIzeDep : public IDiagram {
 
 public:
 
-	DiagramArcSIzeDep(HWND hwnd, int width, int height);
+	using IDiagram::IDiagram;
 	~DiagramArcSIzeDep() = default;
 
 	void SetData(std::vector<std::pair<std::wstring, int>> data) override;

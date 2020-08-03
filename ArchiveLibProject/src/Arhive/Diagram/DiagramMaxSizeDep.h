@@ -6,7 +6,7 @@ class DiagramMaxSizeDep : public IDiagram{
 
 public:
 
-	DiagramMaxSizeDep(HWND hwnd, int width, int height);
+	using IDiagram::IDiagram; 
 	~DiagramMaxSizeDep() = default;
 
 	void SetData(std::vector<std::pair<std::wstring, int>> data) override;

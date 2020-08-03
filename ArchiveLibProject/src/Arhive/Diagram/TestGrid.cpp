@@ -9,7 +9,6 @@ void TestGrid::SetData(std::vector<std::pair<std::wstring, int>> data)
 
 void TestGrid::Draw() {
 
-
     CComPtr<ID2D1SolidColorBrush> m_pLightSlateGrayBrush;
 
     pRT->CreateSolidColorBrush(

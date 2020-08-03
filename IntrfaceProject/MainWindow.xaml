@@ -53,10 +53,19 @@
             </WindowsFormsHost>
         </Grid>
 
-        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" Grid.ColumnSpan="2">
-            <Button MinWidth="30" Content="Write new Archive" Click="WriteNew"/>
-            <Button MinWidth="30" Content="Add to Archive" Click="AddToOpen"/>
-            <Button MinWidth="30" Content="Extract" Click="Extract" />
-        </StackPanel>
+        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Content="Write new Archive" Click="WriteNew" Grid.Column="0"/>
+                <Button Content="Add to Archive" Click="AddToOpen" Grid.Column="1"/>
+                <Button Content="Extract" Click="Extract" Grid.Column="2" />
+                
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

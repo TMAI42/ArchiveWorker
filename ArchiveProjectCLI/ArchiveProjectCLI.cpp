@@ -3,6 +3,7 @@
 
 #include "ArchiveProjectCLI.h"
 
+using System::Text::Encoding;
 
 String^ WPtrToString(wchar_t const* pData, int length) {
 	if (length == 0) {
@@ -16,6 +17,18 @@ String^ WPtrToString(wchar_t const* pData, int length) {
 	System::IntPtr bfr = System::IntPtr(const_cast<wchar_t*>(pData));
 	System::String^ ret = System::Runtime::InteropServices::Marshal::PtrToStringUni(bfr, length);
 	return ret;
+}
+
+String^ NaiveToStringClr(std::string native) {
+	//array<Byte>^ encodedBytes = Encoding::UTF8->GetBytes(native);
+
+	// prevent GC moving the bytes around while this variable is on the stack
+	//pin_ptr<Byte> pinnedBytes = &encodedBytes[0];
+
+	// Call the function, typecast from byte* -> char* is required
+	//MyTest(reinterpret_cast<char*>(pinnedBytes), encodedBytes->Length);
+
+	return gcnew String(native.c_str(),0,native.length(), System::Text::Encoding::UTF8);
 }
 
 ArchiveProjectCLI::ArchiveExternal::~ArchiveExternal() {
@@ -32,7 +45,7 @@ List<ArchiveProjectCLI::FileInArchive>^ ArchiveProjectCLI::ArchiveExternal::Read
 
 	for (auto pairArchive: current->ReadArchive()){
 		
-		castedList->Add(FileInArchive( WPtrToString(pairArchive.first.c_str(), pairArchive.first.size()), pairArchive.second ));
+		castedList->Add(FileInArchive(NaiveToStringClr(pairArchive.first), pairArchive.second ));
 	}
 
 	return castedList;
@@ -97,17 +110,4 @@ void ArchiveProjectCLI::ArchiveExternal::DisplayArchiv()
 }
 
 
-ArchiveProjectCLI::FileInArchive::FileInArchive(String^ mName, int mSize):name(mName), size(mSize){}
 
-void ArchiveProjectCLI::FileInArchive::Name::set(String^ value) {
-	name =value;
-}
-String^ ArchiveProjectCLI::FileInArchive::Name::get() {
-	return name;
-}
-int ArchiveProjectCLI::FileInArchive::Size::get() {
-	return size;
-}
-void ArchiveProjectCLI::FileInArchive::Size::set(int value) {
-	size = value;
-}

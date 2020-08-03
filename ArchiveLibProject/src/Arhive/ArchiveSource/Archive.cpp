@@ -65,8 +65,8 @@ std::vector<std::pair<std::wstring, int>> Archive::ReadArchive() {
 		return temp;
 
 	while (archive_read_next_header(archivePtr.get(), &entry) == ARCHIVE_OK) {
-		auto str = std::string(archive_entry_pathname(entry));
-		temp.push_back({ Helpers::Converters::StringToWStr(str), archive_entry_size(entry) / 8192 });
+		auto str = std::string(archive_entry_pathname_utf8(entry));
+		temp.push_back({Helpers::Converters::StringToWStr(str), archive_entry_size(entry) / 8192 });
 		archive_read_data_skip(archivePtr.get());
 	}
 
