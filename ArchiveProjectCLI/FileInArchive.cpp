@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "FileInArchive.h"
 
 ArchiveProjectCLI::FileInArchive::FileInArchive(String^ mName, int mSize) :name(mName), size(mSize) {}

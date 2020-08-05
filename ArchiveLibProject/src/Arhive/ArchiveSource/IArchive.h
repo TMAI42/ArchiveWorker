@@ -12,7 +12,7 @@ public:
 	virtual ~IArchive() = default;
 
 	virtual std::vector<std::pair<std::wstring, int>> ReadArchive() = 0;
-	virtual void WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format, std::wstring extPath) = 0;
+	virtual void WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format, std::wstring extPath, int cLvl) = 0;
 	virtual void Extract(std::wstring extPath) = 0;
 	virtual void AddToArchive(std::vector<std::wstring> filenames) = 0;
 	virtual void ConvertTo(std::wstring extPath, std::wstring newFormat) = 0;

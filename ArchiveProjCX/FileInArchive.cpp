@@ -1,22 +1,22 @@
-#include"FileInArchive.h"
 #include "pch.h"
+#include "FileInArchive.h"
 
-using namespace ArchiveProjCX;
+//using namespace ArchiveProjCX::;
 
-FileInArchive::FileInArchive(String^ mName, int mSize) :name(mName), size(mSize) {}
+ArchiveProjCX::FileInArchive::FileInArchive(Platform::String^ mName, int mSize) :name(mName), size(mSize) {}
 
-FileInArchive::FileInArchive(FileInArchive% old) : size(old.size), name(old.name) {}
+ArchiveProjCX::FileInArchive::FileInArchive(ArchiveProjCX::FileInArchive% old) : size(old.size), name(old.name) {}
 
 
-void FileInArchive::Name::set(String^ value) {
+void ArchiveProjCX::FileInArchive::Name::set(Platform::String^ value) {
 	name = value;
 }
-String^ FileInArchive::Name::get() {
+Platform::String^ ArchiveProjCX::FileInArchive::Name::get() {
 	return name;
 }
-int FileInArchive::Size::get() {
+int ArchiveProjCX::FileInArchive::Size::get() {
 	return size;
 }
-void FileInArchive::Size::set(int value) {
+void ArchiveProjCX::FileInArchive::Size::set(int value) {
 	size = value;
 }

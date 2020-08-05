@@ -29,7 +29,7 @@ namespace ArchiveProjCX
 		
 		ArchiveExternal(String^ path, TypeOfArchive type);
 		IVector<FileInArchive^>^ ReadArchive();
-		void WriteToArchive(IVector<String^>^ filenames, String^ name, String^ format, String^ extPath);
+		void WriteToArchive(IVector<String^>^ filenames, String^ name, String^ format, String^ extPath, int cLvl);
 		void Extract(String^ extPath);
 		void AddToArchive(IVector<String^>^ filenames);
 		void ConvertTo(String^ extPath, String^ format);

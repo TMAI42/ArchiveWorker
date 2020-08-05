@@ -64,8 +64,7 @@ namespace IntrfaceProject
             if (tmp == null)
                 return;
 
-            current.WriteToArchive(addList, ArchiveName.Text + "." + Type.Text, Type.Text, tmp + "\\");
-
+            current.WriteToArchive(addList, ArchiveName.Text + "." + Type.Text, Type.Text, tmp + "\\" , (int)ComprsionLvl.Value);
             DisplayAchiveData();
 
 
@@ -153,7 +152,13 @@ namespace IntrfaceProject
         private string Browse()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
+
+            openFileDialog.Filter =
+                "All files (*.*)|*.*|" +
+                "Zip files (*.zip)|*.zip|" +
+                "Archive files|*.tar;*.rar;*.7z;*.lz;*.lzma;*.zip";
+               
+
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
             if (openFileDialog.ShowDialog() == true)

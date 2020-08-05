@@ -26,7 +26,7 @@ namespace ArchiveProjectCLI {
 		~ArchiveExternal();
 		ArchiveExternal(String^ path, TypeOfArchive type);
 		List<FileInArchive>^ ReadArchive();
-		void WriteToArchive(List<String^>^ filenames, String^ name, String^ format, String^ extPath);
+		void WriteToArchive(List<String^>^ filenames, String^ name, String^ format, String^ extPath, int cLvl);
 		void Extract(String^ extPath);
 		void AddToArchive(List<String^>^ filenames);
 		void ConvertTo(String^ extPath, String^ format);

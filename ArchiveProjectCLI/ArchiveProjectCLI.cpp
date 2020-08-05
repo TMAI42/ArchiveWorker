@@ -19,7 +19,7 @@ String^ WPtrToString(wchar_t const* pData, int length) {
 	return ret;
 }
 
-String^ NaiveToStringClr(std::string native) {
+String^ NaiveToStringClr(std::wstring native) {
 	//array<Byte>^ encodedBytes = Encoding::UTF8->GetBytes(native);
 
 	// prevent GC moving the bytes around while this variable is on the stack
@@ -28,7 +28,7 @@ String^ NaiveToStringClr(std::string native) {
 	// Call the function, typecast from byte* -> char* is required
 	//MyTest(reinterpret_cast<char*>(pinnedBytes), encodedBytes->Length);
 
-	return gcnew String(native.c_str(),0,native.length(), System::Text::Encoding::UTF8);
+	return gcnew String(native.c_str());
 }
 
 ArchiveProjectCLI::ArchiveExternal::~ArchiveExternal() {
@@ -51,9 +51,11 @@ List<ArchiveProjectCLI::FileInArchive>^ ArchiveProjectCLI::ArchiveExternal::Read
 	return castedList;
 }
 
-void ArchiveProjectCLI::ArchiveExternal::WriteToArchive(List<String^>^ filenames, String^ name, String^ format, String^ extPath)
+void ArchiveProjectCLI::ArchiveExternal::WriteToArchive(List<String^>^ filenames, String^ name, String^ format, String^ extPath, int cLvl)
 {
 	std::vector<std::wstring> castedVector;
+
+	
 
 	for each (String^ fileName in filenames)
 	{
@@ -61,9 +63,11 @@ void ArchiveProjectCLI::ArchiveExternal::WriteToArchive(List<String^>^ filenames
 	}
 
 	current->WriteToArchive(castedVector,
-		msclr::interop::marshal_as<std::wstring>(name),
+		
+		std::wstring(reinterpret_cast<wchar_t*> (System::Runtime::InteropServices::Marshal::StringToHGlobalAuto(name).ToPointer())),
 		msclr::interop::marshal_as<std::wstring>(format),
-		msclr::interop::marshal_as<std::wstring>(extPath));
+		msclr::interop::marshal_as<std::wstring>(extPath),
+		cLvl);
 
 }
 

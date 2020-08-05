@@ -25,7 +25,7 @@ public:
 	~Archive() = default;
 
 	std::vector<std::pair<std::wstring, int>> ReadArchive() final;
-	void WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format, std::wstring extPath) final;
+	void WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format, std::wstring extPath, int cLvl) final;
 	void Extract(std::wstring extPath) final;
 	void AddToArchive(std::vector<std::wstring> filenames) final;
 	void ConvertTo(std::wstring extPath, std::wstring newFormat) final;

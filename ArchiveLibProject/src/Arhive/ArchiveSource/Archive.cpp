@@ -57,16 +57,16 @@ std::vector<std::pair<std::wstring, int>> Archive::ReadArchive() {
 	archivePtr.reset(archive_read_new());
 	auto r = archive_read_support_filter_all(archivePtr.get());
 	r = archive_read_support_format_all(archivePtr.get());
-	r = archive_read_open_filename(archivePtr.get(),
-		Helpers::Converters::WStringToStr(currentPath).c_str(),
+	r = archive_read_open_filename_w(archivePtr.get(),
+		currentPath.c_str(),
 		10240);
 
 	if (r != ARCHIVE_OK)
 		return temp;
 
 	while (archive_read_next_header(archivePtr.get(), &entry) == ARCHIVE_OK) {
-		auto str = std::string(archive_entry_pathname_utf8(entry));
-		temp.push_back({Helpers::Converters::StringToWStr(str), archive_entry_size(entry) / 8192 });
+		auto str = std::wstring(archive_entry_pathname_w(entry));
+		temp.push_back({str, archive_entry_size(entry) / 8192 });
 		archive_read_data_skip(archivePtr.get());
 	}
 
@@ -79,7 +79,7 @@ std::vector<std::pair<std::wstring, int>> Archive::ReadArchive() {
 }
 
 //TODO: error handler
-void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format, std::wstring extPath) {
+void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format, std::wstring extPath, int cLvl) {
 
 	std::unique_ptr<archive, std::function<void(archive*)>> archivePtr(nullptr, Deleter::WriteDeliter);
 	archive_entry* entry;
@@ -88,7 +88,7 @@ void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring n
 	int len;
 
 	this->currentPath = extPath + name;
-	auto fd = CreateFileA(Helpers::Converters::WStringToStr(this->currentPath).c_str(),
+	auto fd = CreateFileW(currentPath.c_str(),
 		GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	CloseHandle(fd);
 
@@ -97,27 +97,29 @@ void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring n
 	//archive_write_zip_set_compression_deflate(archivePtr.get());
 
 	std::string compressionLvl;
-	if (format == L"lz4")
-		compressionLvl = "7";
-	else
+
+	if (cLvl < 10 || cLvl > 0) 
+		compressionLvl = cLvl;
+	 else
 		compressionLvl = "9";
 
 	archive_write_set_format_option(archivePtr.get(),
 		Helpers::Converters::WStringToStr(format).c_str(), "compression-level", compressionLvl.c_str());
-	auto r = archive_write_open_filename(archivePtr.get(),
-		Helpers::Converters::WStringToStr(this->currentPath).c_str());
+	auto r = archive_write_open_filename_w(archivePtr.get(),
+		this->currentPath.c_str());
+
 	for (auto filename : filenames) {
 
 		stat(std::string(filename.begin(), filename.end()).c_str(), &st);
 		entry = archive_entry_new();
-		archive_entry_set_pathname(entry, Helpers::GetNameFromPath(
-			Helpers::Converters::WStringToStr(filename)).c_str());
+		archive_entry_copy_pathname_w(entry, Helpers::GetNameFromPath(
+			filename).c_str());
 		archive_entry_set_size(entry, st.st_size);
 		archive_entry_set_filetype(entry, AE_IFREG);
 		archive_entry_set_perm(entry, 0644);
 		archive_write_header(archivePtr.get(), entry);
 
-		auto file = CreateFileA(Helpers::Converters::WStringToStr(filename).c_str(),
+		auto file = CreateFileW(filename.c_str(),
 			GENERIC_READ, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 		auto t = ReadFile(file, buff, sizeof(buff), reinterpret_cast<DWORD*> (&len), NULL);
 
@@ -156,8 +158,8 @@ void Archive::Extract(std::wstring extPath) {
 	diskPtr.reset(archive_write_disk_new());
 	archive_write_disk_set_options(diskPtr.get(), flags);
 	archive_write_disk_set_standard_lookup(diskPtr.get());
-	if ((r = archive_read_open_filename(archivePtr.get(),
-		Helpers::Converters::WStringToStr(currentPath).c_str(),
+	if ((r = archive_read_open_filename_w(archivePtr.get(),
+		currentPath.c_str(),
 		SIZE_OF_READING_DATA)))
 		return;
 
@@ -165,33 +167,24 @@ void Archive::Extract(std::wstring extPath) {
 		r = archive_read_next_header(archivePtr.get(), &entry);
 		if (r == ARCHIVE_EOF)
 			break;
-		if (r < ARCHIVE_OK)
-			fprintf(stderr, "%s\n", archive_error_string(archivePtr.get()));
 		if (r < ARCHIVE_WARN)
 			return;
 
+		auto newPath = extPath + std::wstring(archive_entry_pathname_w(entry));
 
-		auto newPath = Helpers::Converters::WStringToStr(extPath)
-			+ std::string(archive_entry_pathname(entry));
+		resentExtractedFiles.push_back(newPath);
 
-		resentExtractedFiles.push_back(Helpers::Converters::StringToWStr(newPath));
-
-
-		archive_entry_set_pathname(entry,
+		archive_entry_copy_pathname_w(entry,
 			newPath.c_str());
+
 		r = archive_write_header(diskPtr.get(), entry);
-		if (r < ARCHIVE_OK)
-			fprintf(stderr, "%s\n", archive_error_string(diskPtr.get()));
-		else if (archive_entry_size(entry) > 0) {
+
+		if (archive_entry_size(entry) > 0) {
 			r = CopyData(archivePtr.get(), diskPtr.get());
-			if (r < ARCHIVE_OK)
-				fprintf(stderr, "%s\n", archive_error_string(diskPtr.get()));
 			if (r < ARCHIVE_WARN)
 				return;
 		}
 		r = archive_write_finish_entry(diskPtr.get());
-		if (r < ARCHIVE_OK)
-			fprintf(stderr, "%s\n", archive_error_string(diskPtr.get()));
 		if (r < ARCHIVE_WARN)
 			return;
 	}
@@ -208,7 +201,7 @@ void Archive::AddToArchive(std::vector<std::wstring> filenames) {
 	WriteToArchive(filenames,
 		Helpers::GetNameFromPath(currentPath),
 		Helpers::GetFormatFromPath(currentPath),
-		Helpers::GetPathFromAbsPath(currentPath));
+		Helpers::GetPathFromAbsPath(currentPath), 9);
 
 	for (auto& file : resentExtractedFiles)
 		DeleteFile(file.c_str());
@@ -218,7 +211,7 @@ void Archive::ConvertTo(std::wstring extPath, std::wstring newFormat) {
 	Extract(Helpers::GetPathFromAbsPath(currentPath));
 
 	WriteToArchive(resentExtractedFiles,
-		Helpers::GetRawName(currentPath) + L"." + newFormat, newFormat, extPath);
+		Helpers::GetRawName(currentPath) + L"." + newFormat, newFormat, extPath, 9);
 
 	for (auto& file : resentExtractedFiles)
 		DeleteFile(file.c_str());
