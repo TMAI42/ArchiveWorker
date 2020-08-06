@@ -22,8 +22,9 @@
         <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Grid.ColumnSpan="3" >
             <Button MinWidth="30" Content="Open" Click="OpenArchive"></Button>
             <Button MinWidth="30" Content="Add" Click="AddToList"></Button>
-            <Button MinWidth="30" Content="Convert to" Click="ConvertToZip"></Button>
+            <Button MinWidth="30" Content="Convert to" Click="ConvertTo"></Button>
             <TextBox x:Name ="ArchiveName" Text="test" Width="60"></TextBox>
+            
             <ComboBox Name="Type" VerticalAlignment="Top">
                 <TextBlock>zip</TextBlock>
                 <TextBlock>7zip</TextBlock>
@@ -31,20 +32,37 @@
                 <TextBlock>lzip</TextBlock>
                 <TextBlock>iso</TextBlock>
             </ComboBox>
-            
+      
         </StackPanel>
-        <ListBox Grid.Column="0" Grid.Row="1" Margin="5" Name="AddList" BorderBrush="Black">
-        </ListBox>
+        
+        <Grid Grid.Column="0" Grid.Row="1" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.2*"></RowDefinition>
+                <RowDefinition Height="21*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" FontWeight="Bold" TextDecorations="Underline" Text="Add list"/>
+            <ListBox Grid.Row="1" Name="AddList" Height="auto">
+            </ListBox>
+        </Grid>
 
-        <ListBox Grid.Column="1" Grid.Row="1" Margin="5" Name="Archive" BorderBrush="Black">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,2">
-                       <TextBlock Text="{Binding Name}" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Grid Grid.Column="1" Grid.Row="1" Margin="5" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.2*"></RowDefinition>
+                <RowDefinition Height="21*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" FontWeight="Bold" TextDecorations="Underline" Text="Archive"/>
+            <ListBox Grid.Row="1" Name="Archive" ScrollViewer.CanContentScroll="True">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,2">
+                            <TextBlock Text="{Binding Name}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        
+       
 
         <Grid Grid.Column="2" Grid.Row="1" Margin="5" Name="Diagram">
             <WindowsFormsHost Name="wfhSample">

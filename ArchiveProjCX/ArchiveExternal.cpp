@@ -28,7 +28,7 @@ IVector<FileInArchive^>^ ArchiveExternal::ReadArchive()
 	return ref new Vector<FileInArchive^>(std::move(castedList));
 }
 
-void ArchiveExternal::WriteToArchive(IVector<String^>^ filenames, String^ name, String^ format, String^ extPath)
+void ArchiveExternal::WriteToArchive(IVector<String^>^ filenames, String^ name, String^ format, String^ extPath, int cLvl)
 {
 	std::vector<std::wstring> castedVector;
 
@@ -40,7 +40,8 @@ void ArchiveExternal::WriteToArchive(IVector<String^>^ filenames, String^ name, 
 	current->WriteToArchive(castedVector,
 		std::wstring(name->Data()),
 		std::wstring(format->Data()),
-		std::wstring(extPath->Data()));
+		std::wstring(extPath->Data()),
+		cLvl);
 
 }
 

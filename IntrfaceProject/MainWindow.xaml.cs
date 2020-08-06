@@ -26,17 +26,27 @@ namespace IntrfaceProject
     {
         private ArchiveExternal current;
         private List<string> addList;
+        private List<string> nameList;
+
+        private string AddListProp
+        {
+            set
+            {
+                addList.Add(value);
+                nameList.Add(value.Substring(value.LastIndexOf("\\") + 1));
+            }
+        }
 
         public MainWindow()
         {
             InitializeComponent();
             addList = new List<string>();
-
+            nameList = new List<string>();
         }
 
         private void WriteNew(object sender, RoutedEventArgs e)
         {
-            if (Type.SelectedItem == null)
+            if (Type.SelectedIndex < 0)
             {
                 MessageBox.Show("Select type!", "", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
@@ -64,9 +74,11 @@ namespace IntrfaceProject
             if (tmp == null)
                 return;
 
-            current.WriteToArchive(addList, ArchiveName.Text + "." + Type.Text, Type.Text, tmp + "\\" , (int)ComprsionLvl.Value);
+            current.WriteToArchive(addList, ArchiveName.Text + "." + Type.Text, Type.Text, tmp + "\\", (int)ComprsionLvl.Value);
             DisplayAchiveData();
 
+            addList.Clear();
+            nameList.Clear();
 
         }
 
@@ -76,6 +88,9 @@ namespace IntrfaceProject
                 return;
 
             current.AddToArchive(addList);
+
+            addList.Clear();
+            nameList.Clear();
         }
 
         private void Extract(object sender, RoutedEventArgs e)
@@ -104,10 +119,10 @@ namespace IntrfaceProject
                 return;
             }
 
-            addList.Add(tmp);
+            AddListProp = tmp;
 
             AddList.ItemsSource = null;
-            AddList.ItemsSource = addList;
+            AddList.ItemsSource = nameList;
 
         }
 
@@ -129,23 +144,32 @@ namespace IntrfaceProject
             GetWindow(this).UpdateLayout();
         }
 
-
-        private void ConvertToZip(object sender, RoutedEventArgs e)
+        private void ConvertTo(object sender, RoutedEventArgs e)
         {
-            if (current == null)
+
+            if (Type.SelectedIndex < 0)
             {
-                MessageBox.Show("Open archive!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Select type!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            var tmp = Browse();
+            if (tmp == null)
+            {
                 return;
             }
 
-            var tmp = FolderBrowse();
+            if (current != null)
+                current.Dispose();
 
-            if (tmp == null)
-                return;
+            current = new ArchiveExternal(tmp, TypeOfArchive.Standart);
 
-            current.ConvertTo(tmp + "\\", "zip");
+            DisplayAchiveData();
 
-            MessageBox.Show("Converted to Zip!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+            GetWindow(this).UpdateLayout();
+
+            current.ConvertTo(tmp.Substring(0, tmp.Length - tmp.LastIndexOf("\\") + 1), Type.Text);
+
+            MessageBox.Show($"Converted to { Type.Text }!", "", MessageBoxButton.OK, MessageBoxImage.Information); ;
 
         }
 
@@ -157,7 +181,7 @@ namespace IntrfaceProject
                 "All files (*.*)|*.*|" +
                 "Zip files (*.zip)|*.zip|" +
                 "Archive files|*.tar;*.rar;*.7z;*.lz;*.lzma;*.zip";
-               
+
 
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
@@ -185,7 +209,7 @@ namespace IntrfaceProject
         void DisplayAchiveData()
         {
             IntPtr hWnd = wfhSample.Child.Handle;
-            
+
             current.SetDrawingObject(hWnd, (int)wfhSample.ActualWidth, (int)wfhSample.ActualHeight, TypeOfDiagram.ArchiveSizeDependency);
 
             Archive.ItemsSource = current.ReadArchive();
