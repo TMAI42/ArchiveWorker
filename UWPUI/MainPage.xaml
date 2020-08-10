@@ -6,9 +6,91 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DesignWidth="1300" d:DesignHeight="640">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.2*"></RowDefinition>
+            <RowDefinition Height="21*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Grid.Row="0" Height="30" Orientation="Horizontal" Grid.ColumnSpan="3" >
+            <Button MinWidth="30"  Content="Open" Click="OpenArchive"></Button>
+            <Button MinWidth="30" Content="Add" Click="AddToList"></Button>
+            <Button MinWidth="30" Content="Convert to" Click="ConvertTo"></Button>
+            <TextBox x:Name ="ArchiveName" Text="test" Width="60"></TextBox>
+
+            <ComboBox Name="Type" VerticalAlignment="Top">
+                <TextBlock>zip</TextBlock>
+                <TextBlock>7zip</TextBlock>
+                <TextBlock>pax</TextBlock>
+                <TextBlock>lzip</TextBlock>
+                <TextBlock>iso</TextBlock>
+            </ComboBox>
+
+        </StackPanel>
+
+        <Grid Grid.Column="0" Grid.Row="1" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.2*"></RowDefinition>
+                <RowDefinition Height="21*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" FontWeight="Bold" TextDecorations="Underline" Text="Add list"/>
+            <ListBox Grid.Row="1" Name="AddList" Height="auto">
+            </ListBox>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1" Margin="5" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.2*"></RowDefinition>
+                <RowDefinition Height="21*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" FontWeight="Bold" TextDecorations="Underline" Text="Archive"/>
+            <ListBox Grid.Row="1" Name="Archive">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,2">
+                            <TextBlock Text="{Binding Name}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+
+
+        <Grid Grid.Column="2" Grid.Row="1" Margin="5" Name="Diagram">
+            <BitmapIcon x:Name="dg"></BitmapIcon>
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Write new Archive" Click="WriteNew" Grid.Column="0"/>
+                <Button Content="Add to Archive" Click="AddToOpen" Grid.Column="1"/>
+                <Button Content="Extract" Click="Extract" Grid.Column="2" />
+
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="2" Margin="5" Background="LightGray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" TextAlignment="Center">Comprssion lvl</TextBlock>
+            <Slider Name="ComprsionLvl" Grid.Column="1" Value="0" Minimum="1" Maximum="9" Width="100" />
+        </Grid>
 
     </Grid>
 </Page>

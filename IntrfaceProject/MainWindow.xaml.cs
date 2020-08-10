@@ -74,10 +74,17 @@ namespace IntrfaceProject
             if (tmp == null)
                 return;
 
-            current.WriteToArchive(addList, ArchiveName.Text + "." + Type.Text, Type.Text, tmp + "\\", (int)ComprsionLvl.Value);
+            current.WriteToArchive(
+                addList,
+                ArchiveName.Text + "." + Type.Text,
+                Type.Text,
+                tmp + "\\",
+                (int)ComprsionLvl.Value);
+
             DisplayAchiveData();
 
             addList.Clear();
+            AddList.ItemsSource = null;
             nameList.Clear();
 
         }
@@ -150,6 +157,7 @@ namespace IntrfaceProject
             if (Type.SelectedIndex < 0)
             {
                 MessageBox.Show("Select type!", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
             }
 
             var tmp = Browse();

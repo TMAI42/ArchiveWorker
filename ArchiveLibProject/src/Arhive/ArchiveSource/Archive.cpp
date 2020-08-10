@@ -4,7 +4,6 @@
 #include "archive.h"
 #include "archive_entry.h"
 
-
 Archive::Archive(std::wstring mPath) : currentPath(mPath) {}
 
 
@@ -80,7 +79,7 @@ std::vector<std::pair<std::wstring, int>> Archive::ReadArchive() {
 
 //TODO: error handler
 void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring name, std::wstring format, std::wstring extPath, int cLvl) {
-
+	
 	std::unique_ptr<archive, std::function<void(archive*)>> archivePtr(nullptr, Deleter::WriteDeliter);
 	archive_entry* entry;
 	struct stat st;
@@ -88,40 +87,39 @@ void Archive::WriteToArchive(std::vector<std::wstring> filenames, std::wstring n
 	int len;
 
 	this->currentPath = extPath + name;
-	auto fd = CreateFileW(currentPath.c_str(),
-		GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-	CloseHandle(fd);
 
 	archivePtr.reset(archive_write_new());
-	//archive_write_set_format_zip(archivePtr.get());
-	//archive_write_zip_set_compression_deflate(archivePtr.get());
+	auto f = archive_write_set_format_by_name(archivePtr.get(), Helpers::Converters::WStringToStr(format).c_str());
 
 	std::string compressionLvl;
 
-	if (cLvl < 10 || cLvl > 0) 
-		compressionLvl = cLvl;
+	if (cLvl < 10 && cLvl > 0) 
+		compressionLvl = std::to_string(cLvl);
 	 else
 		compressionLvl = "9";
 
-	archive_write_set_format_option(archivePtr.get(),
+	auto p = archive_write_set_format_option(archivePtr.get(),
 		Helpers::Converters::WStringToStr(format).c_str(), "compression-level", compressionLvl.c_str());
 	auto r = archive_write_open_filename_w(archivePtr.get(),
 		this->currentPath.c_str());
 
 	for (auto filename : filenames) {
-
-		stat(std::string(filename.begin(), filename.end()).c_str(), &st);
-		entry = archive_entry_new();
-		archive_entry_copy_pathname_w(entry, Helpers::GetNameFromPath(
-			filename).c_str());
-		archive_entry_set_size(entry, st.st_size);
-		archive_entry_set_filetype(entry, AE_IFREG);
-		archive_entry_set_perm(entry, 0644);
-		archive_write_header(archivePtr.get(), entry);
+		setlocale(LC_CTYPE, "ru_RU.UTF-8");
 
 		auto file = CreateFileW(filename.c_str(),
 			GENERIC_READ, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 		auto t = ReadFile(file, buff, sizeof(buff), reinterpret_cast<DWORD*> (&len), NULL);
+
+		auto size = GetFileSize(file, nullptr);
+		
+		entry = archive_entry_new();
+		archive_entry_copy_pathname_w(entry, Helpers::GetNameFromPath(
+			filename).c_str());
+		archive_entry_set_size(entry, size);
+		archive_entry_set_filetype(entry, AE_IFREG);
+		archive_entry_set_perm(entry, 0644);
+
+		archive_write_header(archivePtr.get(), entry);
 
 		while (len > 0) {
 			archive_write_data(archivePtr.get(), buff, len);

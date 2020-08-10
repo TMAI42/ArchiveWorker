@@ -63,8 +63,7 @@ void ArchiveProjectCLI::ArchiveExternal::WriteToArchive(List<String^>^ filenames
 	}
 
 	current->WriteToArchive(castedVector,
-		
-		std::wstring(reinterpret_cast<wchar_t*> (System::Runtime::InteropServices::Marshal::StringToHGlobalAuto(name).ToPointer())),
+		msclr::interop::marshal_as<std::wstring>(name),
 		msclr::interop::marshal_as<std::wstring>(format),
 		msclr::interop::marshal_as<std::wstring>(extPath),
 		cLvl);

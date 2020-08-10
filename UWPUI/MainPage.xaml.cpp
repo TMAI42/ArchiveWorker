@@ -25,3 +25,33 @@ MainPage::MainPage()
 {
 	InitializeComponent();
 }
+
+void UWPUI::MainPage::WriteNew()
+{
+	throw ref new Platform::NotImplementedException();
+}
+
+void UWPUI::MainPage::AddToOpen()
+{
+	throw ref new Platform::NotImplementedException();
+}
+
+void UWPUI::MainPage::Extract()
+{
+	throw ref new Platform::NotImplementedException();
+}
+
+void UWPUI::MainPage::OpenArchive()
+{
+	throw ref new Platform::NotImplementedException();
+}
+
+void UWPUI::MainPage::AddToList()
+{
+	throw ref new Platform::NotImplementedException();
+}
+
+void UWPUI::MainPage::ConvertTo()
+{
+	throw ref new Platform::NotImplementedException();
+}

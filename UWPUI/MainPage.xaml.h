@@ -17,5 +17,13 @@ namespace UWPUI
 	public:
 		MainPage();
 
+		void WriteNew();
+		void AddToOpen();
+		void Extract();
+		void OpenArchive();
+		void AddToList();
+		void ConvertTo();
+
+
 	};
 }
